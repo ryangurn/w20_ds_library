@@ -3,8 +3,6 @@ import string
 from typing import TypeVar, Callable
 dframe = TypeVar('pd.core.frame.DataFrame')
 
-url = 'https://docs.google.com/spreadsheets/d/1dcExRMXxGjgh7BAp932A8nfAUPYDZEsJoNUISMJ36No/export?format=csv&id=1dcExRMXxGjgh7BAp932A8nfAUPYDZEsJoNUISMJ36No&gid=247160809'
-
 def compile_vector(target_row):
   ret_vec = []
   ret_vec.append(target_row['Length'])
