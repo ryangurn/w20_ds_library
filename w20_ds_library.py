@@ -4,11 +4,8 @@ from typing import TypeVar, Callable
 dframe = TypeVar('pd.core.frame.DataFrame')
 
 def compile_vector(target_row, columns):
-  ret_vec = []
-  for l in columns:
-    ret_vec.append(target_row[l])
-
-  return ret_vec
+  nt = target_row.drop(columns)
+  return nt.to_list()
 
 def euclidean_distance(vect1:list ,vect2:list) -> float:
   assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
