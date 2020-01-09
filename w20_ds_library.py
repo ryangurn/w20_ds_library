@@ -3,10 +3,9 @@ import string
 from typing import TypeVar, Callable
 dframe = TypeVar('pd.core.frame.DataFrame')
 
-def compile_vector(target_row):
+def compile_vector(target_row, columns):
   ret_vec = []
-  ret_vec.append(target_row['Length'])
-  for l in letters:
+  for l in columns:
     ret_vec.append(target_row[l])
 
   return ret_vec
