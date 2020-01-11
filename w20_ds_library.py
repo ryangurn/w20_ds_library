@@ -46,7 +46,7 @@ def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:
   sort = ordered_distances(target_vector, crowd_table, answer_column, dfunc)
   #your code goes here
   top_k = [i for i,d in sort[:k]]
-  opinions = [crowd_table.loc[i, 'Survived'] for i in top_k]
+  opinions = [crowd_table.loc[i, answer_column] for i in top_k]
   winner = 1 if opinions.count(1) > opinions.count(0) else 0
   return winner
 
