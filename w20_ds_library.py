@@ -66,7 +66,7 @@ def knn_tester(test_table, crowd_table, answer_column, k, dfunc:Callable) -> dic
   for target_vector in range(0, len(test_table)):
     vect = compile_vector(test_table.iloc[target_vector], [answer_column])
     predicted = knn(vect, crowd_table, answer_column, k, dfunc)
-    actual = test_table.iloc[target_vector]['Survived']
+    actual = test_table.iloc[target_vector][answer_column]
     if predicted == actual == 1:
       true_positive += 1
     elif predicted == actual == 0:
