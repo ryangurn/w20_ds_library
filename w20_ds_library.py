@@ -100,6 +100,37 @@ def cm_f1(confusion_dictionary: dict) -> float:
   
   return f1
 
+def dot_product(vect1: list, vect2: list) -> int:
+  return sum(x*y for x,y in zip(vect1, vect2))
+
+def square_root(input: int) -> float:
+  last_guess = input / 2.0
+  while True:
+    guess = (last_guess + input / last_guess) / 2
+    if abs(guess - last_guess) < 1*10**(-32):
+      return guess
+    last_guess = guess
+
+def cosine_similarity(vect1:list ,vect2:list) -> float:
+  assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
+  assert isinstance(vect2, list), f'vect2 is not a list but a {type(vect2)}'
+  assert len(vect1) == len(vect2), f"Mismatching length for vectors: {len(vect1)} and {len(vect2)}"
+  
+
+  #your code here
+  return dot_product(vect1, vect2) / (square_root(dot_product(vect1, vect1)) * square_root(dot_product(vect2, vect2)))
+
+def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
+  assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
+  assert isinstance(vect2, list), f'vect2 is not a list but a {type(vect2)}'
+  assert len(vect1) == len(vect2), f"Mismatching length for vectors: {len(vect1)} and {len(vect2)}"
+
+  normal_result = cosine_similarity(vect1, vect2)
+  return 1.0 - normal_result
+
+def filter_by_column_value(df, col, value):
+  filtered_table = df.loc[df[col] == value]
+  return filtered_table
 
 def hello_ds():
     print("Big hello to you")
