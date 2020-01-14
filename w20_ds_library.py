@@ -25,16 +25,10 @@ def ordered_distances(target_vector:list, crowd_table:dframe, answer_column:str,
   assert callable(dfunc), f'dfunc not a function but instead a {type(dfunc)}'
   assert answer_column in crowd_table, f'{answer_column} is not a legit column in crowd_table - check case and spelling'
 
-  distance_list = []
+  crowd_data = crowd_table.drop(answer_column, axis=1) #.drop returns modified deep-copy
+  distance_list = [(index, dfunc(target_vector, row.tolist())) for index, row in crowd_data.iterrows()]
+  return sorted(distance_list, key=lambda pair: pair[1])
 
-  for i in range(0, len(crowd_table)):
-    row = crowd_table.iloc[i]
-    vect = compile_vector(row, [answer_column])
-
-    distance_list.append((i, dfunc(target_vector, vect)))
-
-  distance_list = sorted(distance_list, key = lambda x: x[1])
-  return distance_list
 def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:Callable) -> int:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
   assert isinstance(crowd_table, pd.core.frame.DataFrame), f'crowd_table not a dataframe but instead a {type(crowd_table)}'
