@@ -27,7 +27,7 @@ def ordered_distances(target_vector:list, crowd_table:dframe, answer_column:str,
 
   crowd = crowd_table.drop(answer_column, axis=1) # drop the answer column from the results (copy)
   dist = [(i, dfunc(target_vector, v.tolist())) for i, v in crowd.iterrows()] # condensing my for loop down
-  return sorted(dist, key=lambda pair: pair[1]) # sort with regard to position 1... https://stackoverflow.com/questions/29781862/how-does-this-example-of-a-lambda-function-work
+  return sorted(dist, key=lambda x: x[1]) # sort with regard to position 1... https://stackoverflow.com/questions/29781862/how-does-this-example-of-a-lambda-function-work
 
 def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:Callable) -> int:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
