@@ -25,9 +25,9 @@ def ordered_distances(target_vector:list, crowd_table:dframe, answer_column:str,
   assert callable(dfunc), f'dfunc not a function but instead a {type(dfunc)}'
   assert answer_column in crowd_table, f'{answer_column} is not a legit column in crowd_table - check case and spelling'
 
-  crowd_data = crowd_table.drop(answer_column, axis=1) #.drop returns modified deep-copy
-  distance_list = [(index, dfunc(target_vector, row.tolist())) for index, row in crowd_data.iterrows()]
-  return sorted(distance_list, key=lambda pair: pair[1])
+  crowd = crowd_table.drop(answer_column, axis=1) # drop the answer column from the results (copy)
+  dist = [(i, dfunc(target_vector, v.tolist())) for i, v in crowd.iterrows()] # condensing my for loop down
+  return sorted(dist, key=lambda pair: pair[1]) # sort with regard to position 1... https://stackoverflow.com/questions/29781862/how-does-this-example-of-a-lambda-function-work
 
 def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:Callable) -> int:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
