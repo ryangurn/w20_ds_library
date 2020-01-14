@@ -3,6 +3,11 @@ import string
 from typing import TypeVar, Callable
 dframe = TypeVar('pd.core.frame.DataFrame')
 
+
+#############
+#  module1  #
+#############
+
 def compile_vector(row, columns):
   nt = row.drop(columns)
   return nt.to_list()
@@ -99,6 +104,11 @@ def cm_f1(confusion_dictionary: dict) -> float:
   f1 = 2/(recall_div+precision_div) if (recall_div+precision_div) != 0 else 0  #heuristic
   
   return f1
+
+
+#############
+#  module2  #
+#############
 
 def dot_product(vect1: list, vect2: list) -> int:
   return sum(x*y for x,y in zip(vect1, vect2))
