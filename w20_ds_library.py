@@ -142,5 +142,59 @@ def filter_by_column_value(df, col, value):
   filtered_table = df.loc[df[col] == value]
   return filtered_table
 
+#############
+#  module3  #
+#############
+
+def bayes(evidence:set, evidence_bag:dict, training_table:dframe) -> tuple:
+  assert isinstance(evidence, set), f'evidence not a set but instead a {type(evidence)}'
+  assert isinstance(evidence_bag, dict), f'evidence_bag not a dict but instead a {type(evidence_bag)}'
+  assert isinstance(training_table, pd.core.frame.DataFrame), f'training_table not a dataframe but instead a {type(training_table)}'
+  assert 'label' in training_table, f'label column is not found in training_table'
+  assert training_table.label.dtype == int, f"label must be an int column (possibly wrangled); instead it has type({training_table.label.dtype})"
+
+  labels = training_table.label.to_list()
+  class_amt = len(set(labels))
+  assert len(list(evidence_bag.values())[0]) == class_amt, f'The number of values in evidence_bag does not match the number of unique classes ({class_amt}) in labels.'
+
+  counter = []
+  probabilities = []
+  for i in range(class_amt):
+    ct = labels.count(i)
+    counter.append(ct)
+    probabilities.append(ct/len(labels))
+
+  res = []
+  for j in range(class_amt):
+    numerator = 1
+    for i in evidence:
+      all_values = evidence_bag[i]
+      the_value = (all_values[j]/counter[j])
+      numerator *= the_value
+    res.append(numerator * probabilities[j])
+
+  return tuple(res)
+
+def char_set_builder(text:str) -> list:
+  the28 = set(text).intersection(set('abcdefghijklmnopqrstuvwxyz!#'))
+  return list(the28)
+
+def bayes_tester(testing_table:dframe, evidence_bag:dict, training_table:dframe, parser:Callable) -> list:
+  assert isinstance(testing_table, pd.core.frame.DataFrame), f'test_table not a dataframe but instead a {type(testing_table)}'
+  assert isinstance(evidence_bag, dict), f'evidence_bag not a dict but instead a {type(evidence_bag)}'
+  assert isinstance(training_table, pd.core.frame.DataFrame), f'training_table not a dataframe but instead a {type(training_table)}'
+  assert callable(parser), f'parser not a function but instead a {type(parser)}'
+  assert 'label' in training_table, f'label column is not found in training_table'
+  assert training_table.label.dtype == int, f"label must be an int column (possibly wrangled); instead it has type({training_table.label.dtype})"
+  assert 'text' in testing_table, f'text column is not found in testing_table'
+
+  res = []
+  for i,j in testing_table.iterrows():
+    r = j['text'] # raw text
+    p = set(parser(r)) # parse it
+    t = bayes(p, evidence_bag, training_table) # bayes it
+    res.append(t) # append the tuple
+  return res
+
 def hello_ds():
     print("Big hello to you")
