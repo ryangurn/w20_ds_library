@@ -297,7 +297,8 @@ def curry_x(old_func,x):
 
   return inner  #will return a function of 1 argument. But that function will carry the closure with it.
 
-
+swords = stopwords.words('english')
+swords.sort()
 word_parser = curry_x(get_clean_words, swords)
 
 def cmat_accuracy(cmat:list) -> float:
