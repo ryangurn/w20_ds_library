@@ -2,6 +2,7 @@ import pandas as pd
 import string
 import re
 from typing import TypeVar, Callable
+from nltk.corpus import stopwords
 dframe = TypeVar('pd.core.frame.DataFrame')
 
 
