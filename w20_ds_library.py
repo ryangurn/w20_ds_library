@@ -1,5 +1,5 @@
-from nltk.corpus import stopwords
 from __future__ import division
+from nltk.corpus import stopwords
 from typing import TypeVar, Callable
 import pandas as pd
 import string
