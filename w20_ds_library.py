@@ -134,7 +134,7 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
   #your code here
   try:
     return dot_product(vect1, vect2) / (square_root(dot_product(vect1, vect1)) * square_root(dot_product(vect2, vect2)))
-  catch ZeroDivisionError:
+  except ZeroDivisionError:
     return 0.0
 
 def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
