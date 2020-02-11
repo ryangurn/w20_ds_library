@@ -1,12 +1,10 @@
-from __future__ import division
-from nltk.corpus import stopwords
-from typing import TypeVar, Callable
 import pandas as pd
 import string
 import re
+from typing import TypeVar, Callable
 import nltk
-import math
 nltk.download('stopwords')
+from nltk.corpus import stopwords
 dframe = TypeVar('pd.core.frame.DataFrame')
 
 
@@ -134,7 +132,10 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
   
 
   #your code here
-  return dot_product(vect1, vect2) / (math.sqrt(dot_product(vect1, vect1)) * math.sqrt(dot_product(vect2, vect2)))
+  try:
+    return dot_product(vect1, vect2) / (square_root(dot_product(vect1, vect1)) * square_root(dot_product(vect2, vect2)))
+  catch ZeroDivisionError:
+    return 0.0
 
 def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
   assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
