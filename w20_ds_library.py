@@ -1,12 +1,12 @@
+from nltk.corpus import stopwords
+from __future__ import division
+from typing import TypeVar, Callable
 import pandas as pd
 import string
 import re
-from typing import TypeVar, Callable
 import nltk
 import math
-from __future__ import division
 nltk.download('stopwords')
-from nltk.corpus import stopwords
 dframe = TypeVar('pd.core.frame.DataFrame')
 
 
