@@ -133,7 +133,10 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
   
 
   #your code here
-  return dot_product(vect1, vect2) / (math.sqrt(dot_product(vect1, vect1)) * math.sqrt(dot_product(vect2, vect2)))
+  if (math.sqrt(dot_product(vect1, vect1)) * math.sqrt(dot_product(vect2, vect2))) != 0:
+    return dot_product(vect1, vect2) / (math.sqrt(dot_product(vect1, vect1)) * math.sqrt(dot_product(vect2, vect2)))
+  else:
+    return 0.0
 
 def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
   assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
