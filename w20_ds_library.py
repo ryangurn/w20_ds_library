@@ -8,6 +8,7 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 dframe = TypeVar('pd.core.frame.DataFrame')
 narray = TypeVar('numpy.ndarray')
+spnlp = TypeVar('spacy.lang.en.English')
 
 
 #############
