@@ -1,6 +1,7 @@
 import pandas as pd
 import string
 import re
+import np
 from typing import TypeVar, Callable
 import nltk
 nltk.download('stopwords')
