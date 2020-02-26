@@ -410,10 +410,11 @@ def vec(nlp:spnlp, s:str) -> narray:
     return nlp.vocab[s].vector
 
 def sent2vec(nlp:spnlp, s: str) -> narray:
+  sentence = nlp(s)
   ret_arr = []
-  for i in nlp(s.lower()):
-    ret_arr.append(vec(nlp, i.text))
-  return meanv(np.matrix(ret_arr))
+    for sent in sentence:
+      ret_arr.append(w.vector)
+  return meanv(np.array(ret_arr))
 
 def spacy_closest_sent(nlp:spnlp, space:list, input_str:str, n:int=10):
   assert isinstance(space, list)
